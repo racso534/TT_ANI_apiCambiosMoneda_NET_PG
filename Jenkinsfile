@@ -12,26 +12,18 @@ pipeline {
     stages {        
         stage('Construir imagen docker') {
             steps {
-                script {
-                    bat "docker build -t ${DOCKER_IMAGE} ."
-                }
+                    bat "docker build -t ${DOCKER_IMAGE} ."                
             }
         }
         stage('Ejecutar pruebas unitarias') {
-            steps {
-                script {
-                    bat "dotnet test apiCambiosMoneda.Test\\apiCambiosMoneda.Test.csproj --configuration Release"
-                }
+            steps {                
+                bat "dotnet test apiCambiosMoneda.Test\\apiCambiosMoneda.Test.csproj --configuration Release"                
             }
         }
         stage('Limpiar contenedor existente') {
             steps { 
-                script {               
-                    catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE') {					
-                        bat "docker container rm -f ${CONTAINER_NAME} || exit 0"
-                    }
-                }
-            }
+                bat "docker container rm -f ${CONTAINER_NAME} || exit 0"                    
+            }            
         }
         stage('Ejecutar Contenedor') {
             steps{				
