@@ -9,18 +9,18 @@ pipeline {
         DOCKER_NETWORK = 'dockermonedas_red'
     }
 
-    stages {
-        stage('Ejecutar pruebas unitarias') {
-            steps {
-                script {
-                    bat "dotnet test apiCambiosMoneda.Test\\apiCambiosMoneda.Test.csproj --configuration Release"
-                }
-            }
-        }
+    stages {        
         stage('Construir imagen docker') {
             steps {
                 script {
                     bat "docker build -t ${DOCKER_IMAGE} ."
+                }
+            }
+        }
+        stage('Ejecutar pruebas unitarias') {
+            steps {
+                script {
+                    bat "dotnet test apiCambiosMoneda.Test\\apiCambiosMoneda.Test.csproj --configuration Release"
                 }
             }
         }
