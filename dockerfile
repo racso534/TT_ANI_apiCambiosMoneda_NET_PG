@@ -1,10 +1,10 @@
-FROM mcr.microsoft.com/dotnet/aspnet/:8.0 as base
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
-ENV ASPNETCORE_URLS=http//+:5235
+ENV ASPNETCORE_URLS=http://+:5235
 
 EXPOSE  5235
 
-FROM mcr.microsoft.com/dotnet/sdk/:8.0 as build
+FROM mcr.microsoft.com/dotnet/sdk:8.0 as build
 WORKDIR /src
 COPY . .
 RUN dotnet restore
